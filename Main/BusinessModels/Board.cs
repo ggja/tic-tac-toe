@@ -1,8 +1,15 @@
+using MathNet.Numerics.LinearAlgebra;
+
 namespace MathNetExample;
 
-public static class BoardExtension
+public static class Board
 {
-    public static void Display(Board board)
+    public static Vector<double> InversionBoard(this Vector<double> board)
+    {
+        return board.Multiply(-1);
+    }
+    
+    public static void Display(Vector<double> board)
     {
         if (board.Count != 9)
             throw new ArgumentException("Board must contain exactly 9 elements.");
@@ -15,7 +22,6 @@ public static class BoardExtension
                 Console.WriteLine("-----------");
         }
     }
-
     public static string GetSymbol(double value)
     {
         return value switch
@@ -26,5 +32,4 @@ public static class BoardExtension
             _ => " "
         };
     }
-    
 }

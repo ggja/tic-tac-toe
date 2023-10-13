@@ -1,8 +1,10 @@
+using MathNet.Numerics.LinearAlgebra;
+
 namespace MathNetExample;
 
 public static class RotateMatrixHelper
 {
-    public static Board RotateBoard(Board board)
+    public static Vector<double> RotateBoard(Vector<double> board)
     {
         var matrix = ConvertVectorToMatrix(board);
         var rotatedMatrix = RotateMatrix90Degrees(matrix);
@@ -10,7 +12,7 @@ public static class RotateMatrixHelper
         return rotatedBoard;
     }
 
-    static double[,] ConvertVectorToMatrix(Board vector)
+    static double[,] ConvertVectorToMatrix(Vector<double> vector)
     {
         double[,] matrix = new double[3, 3];
         for (int i = 0; i < 3; i++)
@@ -26,10 +28,15 @@ public static class RotateMatrixHelper
     static double[,] RotateMatrix90Degrees(double[,] matrix)
     {
         Random random = new Random();
-        int times = random.Next(1, 4);  // generates a random number between 1 and 3
+        int times = random.Next(0, 4);  // generates a random number between 1 and 3
 
         int n = matrix.GetLength(0);
         double[,] rotatedMatrix = new double[n, n];
+
+        if (times == 0)
+        {
+            return matrix;
+        }
         
         if(times == 1)
             for (int i = 0; i < n; ++i)
@@ -62,7 +69,7 @@ public static class RotateMatrixHelper
         return rotatedMatrix;
     }
 
-    static Board ConvertMatrixToVector(double[,] matrix)
+    static Vector<double> ConvertMatrixToVector(double[,] matrix)
     {
         double[] array = new double[9];
         int k = 0;
@@ -73,6 +80,6 @@ public static class RotateMatrixHelper
                 array[k++] = matrix[i, j];
             }
         }
-        return Board.Build.DenseOfArray(array);
+        return Vector<double>.Build.DenseOfArray(array);
     }
 }

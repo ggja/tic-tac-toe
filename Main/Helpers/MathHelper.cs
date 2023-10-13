@@ -1,9 +1,16 @@
+using MathNet.Numerics.LinearAlgebra;
+
 namespace MathNetExample;
 using Board = MathNet.Numerics.LinearAlgebra.Vector<double>;
 
 public static class MathHelper
 {
     public static Random Random = new Random();
+    
+    public static bool GetRandomBool()
+    {
+        return Random.Next(2) == 0;
+    }
     public static double[,] GenerateRandomMatrix(int rows, int cols, int precision=1)
     {
         var data = new double[rows, cols];
@@ -47,7 +54,7 @@ public static class MathHelper
         return lines;
     }
     
-    public static bool EndBoard(Board board)
+    public static bool EndBoard(Vector<double> board)
     {
         double epsilon = 0.000001;
         return board.Exists(_ => _ < epsilon) == false;
